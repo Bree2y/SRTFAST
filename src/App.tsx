@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import Login from './pages/Login';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 
-function App() {
-  const [count, setCount] = useState(0)
+const theme = createTheme({
+  // 테마 커스터마이징 (색상, 폰트 등) 가능
+});
+
+const App: React.FC = () => {
+  const handleLoginSuccess = (email: string) => {
+    alert(`${email}로 로그인 성공!`);
+    // 로그인 성공 후 로직 (ex: 라우팅, 토큰 저장 등)
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <ThemeProvider theme={theme}>
+      {/* MUI 기본 스타일 초기화 */}
+      <CssBaseline />
+      <Login onLoginSuccess={handleLoginSuccess} />
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;
